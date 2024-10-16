@@ -8,10 +8,18 @@ public partial struct HandleCubeSystem : ISystem
 {
     public void OnUpdate(ref SystemState state)
     {
+        /*
         foreach (RotatingMovingCubeAspect rotatingMovingCubeAspect in
                  SystemAPI.Query<RotatingMovingCubeAspect>().WithAll<RotatingCube>() )
         {
             rotatingMovingCubeAspect.MoveAndRotate(SystemAPI.Time.DeltaTime);
         }
+        */
+        
+        RotatingMovingCubeAspect.RotatingMovingCubeJob rotatingMovingCubeJob = new RotatingMovingCubeAspect.RotatingMovingCubeJob()
+        {
+            deltaTime = SystemAPI.Time.DeltaTime
+        };
+        rotatingMovingCubeJob.ScheduleParallel();
     }
 }
