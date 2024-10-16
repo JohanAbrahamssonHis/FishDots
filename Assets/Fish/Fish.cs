@@ -21,7 +21,7 @@ public class Fish : MonoBehaviour
     public float selectionPointWeight = 10f;
     [Header("Neighbours")]
     public float neighborDistance = 3.0f;
-    public List<Fish> neighborFish;
+    public List<Transform> neighborFish;
     [Header("Seperation & Predetor")]
     public float separationDistance = 1.0f;
     public float predatorAvoidanceWeight = 3.0f;
@@ -71,10 +71,10 @@ public class Fish : MonoBehaviour
         Vector3 cohesion = Cohesion() * cohesionWeight;
         Vector3 alignment = Alignment() * alignmentWeight;
         Vector3 separation = Separation() * separationWeight;
-        Vector3 predatorAvoidance = AvoidPredators() * predatorAvoidanceWeight;
-        Vector3 wallAvoidance = AvoidWalls() * wallAvoidanceWeight;
+        //Vector3 predatorAvoidance = AvoidPredators() * predatorAvoidanceWeight;
+        //Vector3 wallAvoidance = AvoidWalls() * wallAvoidanceWeight;
         Vector3 selectionPoint = SelectionPoint() * selectionPointWeight;
-        
+        /*
         speedChangeTimer -= Time.deltaTime;
         if (speedChangeTimer <= 0)
         {
@@ -87,8 +87,10 @@ public class Fish : MonoBehaviour
             );
             speedChangeTimer = speedChangeInterval;
         }
+        + predatorAvoidance + wallAvoidance
         
-        direction = cohesion + alignment + separation + predatorAvoidance + wallAvoidance + selectionPoint + randomMovement;
+        */
+        direction = cohesion + alignment + separation  + selectionPoint + randomMovement;
         velocity += Time.deltaTime * direction;
         velocity += Time.deltaTime * speed * velocity.normalized;
         velocity = Vector3.ClampMagnitude(velocity, speed);
@@ -103,9 +105,9 @@ public class Fish : MonoBehaviour
     {
         Vector3 centerOfMass = Vector3.zero;
 
-        foreach (Fish fish in neighborFish)
+        foreach (Transform fish in neighborFish)
         {
-            centerOfMass += fish.transform.position;
+            centerOfMass += fish.position;
         }
 
         if (neighborFish.Count == 0) return Vector3.zero;
@@ -118,9 +120,9 @@ public class Fish : MonoBehaviour
     {
         Vector3 averageHeading = Vector3.zero;
 
-        foreach (Fish fish in neighborFish)
+        foreach (Transform fish in neighborFish)
         {
-            averageHeading += fish.velocity;
+            averageHeading += fish.forward;
         }
 
         if (neighborFish.Count == 0) return Vector3.zero;
@@ -134,11 +136,11 @@ public class Fish : MonoBehaviour
         Vector3 separationForce = Vector3.zero;
         Vector3 position = transform.position;
 
-        foreach (Fish fish in neighborFish)
+        foreach (Transform fish in neighborFish)
         {
-            if (Vector3.Distance(position, fish.transform.position) < separationDistance)
+            if (Vector3.Distance(position, fish.position) < separationDistance)
             {
-                separationForce += position - fish.transform.position;
+                separationForce += position - fish.position;
             }
         }
 
@@ -191,9 +193,9 @@ public class Fish : MonoBehaviour
         return Vector3.zero;
     }
 
-    List<Fish> GetNeighbors()
+    List<Transform> GetNeighbors()
     {
-        List<Fish> neighbors = new List<Fish>();
+        List<Transform> neighbors = new List<Transform>();
         
         Collider[] nearbyObjects = Physics.OverlapSphere(transform.position, neighborDistance, LayerMask.GetMask("Fish"));
         
@@ -252,8 +254,11 @@ public class Fish : MonoBehaviour
         {
             if (obj != collider)
             {
+                neighbors.Add(obj.transform);
+                /*
                 obj.gameObject.TryGetComponent<Fish>(out Fish fish);
                 neighbors.Add(fish);
+                */
             }
         }
         
