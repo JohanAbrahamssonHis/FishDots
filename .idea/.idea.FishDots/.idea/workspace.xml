@@ -7,11 +7,8 @@
     <list default="true" id="d827326d-75c6-4137-b35c-b596b3844bca" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.FishDots/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.FishDots/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Cube.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Cube.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/HandleCubeSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/HandleCubeSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/RotatingMovingCubeAspect.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/RotatingMovingCubeAspect.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Setup Dots/Subscene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Setup Dots/Subscene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/EntitiesClientSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EntitiesClientSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/ShaderGraphSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ShaderGraphSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/SpawnCubeSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SpawnCubeSystem.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,7 +104,7 @@
       <workItem from="1728481448594" duration="3661000" />
       <workItem from="1728562926702" duration="5968000" />
       <workItem from="1728652596385" duration="1848000" />
-      <workItem from="1729067186589" duration="1849000" />
+      <workItem from="1729067186589" duration="2850000" />
     </task>
     <servers />
   </component>

@@ -30,6 +30,10 @@ public partial class SpawnCubeSystem : SystemBase
                 Rotation = quaternion.identity,
                 Scale = 1f
             });
+            EntityManager.SetComponentData(spawnedEntity, new Movement
+            {
+                movementVector = new float3(Random.Range(-1,1), 0,Random.Range(-1,1))
+            });
         }
     }
 }
