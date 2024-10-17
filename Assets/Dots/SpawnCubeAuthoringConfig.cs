@@ -27,6 +27,4 @@ public struct SpawnCubeConfig : IComponentData
 {
     public Entity cubePrefabEntity;
     public int amountToSpawn;
-
-
 }
