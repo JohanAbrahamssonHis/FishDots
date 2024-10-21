@@ -7,8 +7,8 @@
     <list default="true" id="d827326d-75c6-4137-b35c-b596b3844bca" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.FishDots/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.FishDots/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Fish Dots/FishAspect.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Fish Dots/FishAspect.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Fish Dots/FishAuthoring.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Fish Dots/FishAuthoring.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Fish Dots/HandleFishSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Fish Dots/HandleFishSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Fish Dots/SpawnFishSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Fish Dots/SpawnFishSystem.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,6 +16,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Assets/Fish Dots/AllFish.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Fish Dots/HandleFishSystem.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Fish Dots/SpawnFishSystem.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.burst@1.8.17/Runtime/BurstCompilerOptions.cs" root0="SKIP_HIGHLIGHTING" />
@@ -108,6 +109,7 @@
       <workItem from="1729173121063" duration="3151000" />
       <workItem from="1729253244302" duration="5293000" />
       <workItem from="1729512855138" duration="4461000" />
+      <workItem from="1729519606158" duration="1108000" />
     </task>
     <servers />
   </component>

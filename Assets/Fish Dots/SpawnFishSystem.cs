@@ -13,15 +13,19 @@ public partial class SpawnFishSystem : SystemBase
     protected override void OnCreate()
     {
         RequireForUpdate<SpawnFishConfig>();
+        RequireForUpdate<AllFish>();
     }
     
     protected override void OnUpdate()
     {
         //Ensures it only runs once
         this.Enabled = false;
-
+        
         SpawnFishConfig spawnFishConfig = SystemAPI.GetSingleton<SpawnFishConfig>();
 
+        AllFish allFish = SystemAPI.GetSingleton<AllFish>();
+        allFish.Initialize();
+        
         for (int i = 0; i < spawnFishConfig.amountToSpawn; i++)
         {
             Entity spawnedEntity = EntityManager.Instantiate(spawnFishConfig.fishPrefabEntity);
@@ -37,6 +41,9 @@ public partial class SpawnFishSystem : SystemBase
                 movementVector = new float3(Random.Range(-1,1), 0,Random.Range(-1,1))
             });
             */
+            
+            allFish.AddEntity(EntityManager.GetComponentData<LocalTransform>(spawnedEntity));
+            
         }
     }
 }

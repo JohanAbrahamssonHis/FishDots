@@ -59,7 +59,7 @@ public partial struct FishJob : IJobEntity
         localTransform = localTransform.Translate(fish.movementVector * deltaTime);
         */
         
-        neighbourFish = GetNeighbors(ref localTransform, ref fish);
+        neighbourFish = GetNeighbors(ref localTransform, ref fish, ref neighbourFish);
         
         float3 cohesion = Cohesion(ref localTransform, ref fish, ref neighbourFish) * fish.cohesionWeight;
         float3 alignment = Alignment(ref fish, ref neighbourFish) * fish.alignmentWeight;
@@ -132,15 +132,13 @@ public partial struct FishJob : IJobEntity
             ? Normalize(fishComponent.selectionPoint-localTransform.Position) : float3.zero;
     }
     
-    public static NativeList<LocalTransform> GetNeighbors(ref LocalTransform localTransform, ref FishComponent fish)
+    public static NativeList<LocalTransform> GetNeighbors(ref LocalTransform localTransform, ref FishComponent fish, ref NativeList<LocalTransform> allFishes)
     {
-        Collider[] nearbyObjects = Physics.OverlapSphere(localTransform.Position, fish.neighborDistance, LayerMask.GetMask("Fish"));
-        
         NativeList<LocalTransform> nav = new NativeList<LocalTransform>();
 
-        foreach (var obj in nearbyObjects)
+        foreach (var obj in allFishes)
         {
-            nav.Add(LocalTransform.FromMatrix(obj.transform.worldToLocalMatrix));
+            if(Vector3.Distance(obj.Position, localTransform.Position)<fish.neighborDistance) nav.Add(obj);
         }
 
         nav.Dispose();

@@ -9,6 +9,7 @@ using UnityEngine;
 
 public partial struct HandleFishSystem : ISystem
 {
+    
     public void OnUpdate(ref SystemState state)
     {
         /*
@@ -18,10 +19,11 @@ public partial struct HandleFishSystem : ISystem
             fishAspect.FishLogic(SystemAPI.Time.DeltaTime);
         }
         */
-        
+        SystemAPI.TryGetSingleton<AllFish>(out AllFish fish);
         FishJob fishJob = new FishJob()
         {
             deltaTime = SystemAPI.Time.DeltaTime,
+            neighbourFish = fish.GetFishes(),
         };
         fishJob.Run();
     }
