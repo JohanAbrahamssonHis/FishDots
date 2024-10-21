@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
+using Unity.Transforms;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -22,6 +24,7 @@ public class FishAuthoring : MonoBehaviour
                 alignmentWeight = 1.0f,
                 separationWeight = 1.5f,
                 selectionPointWeight = 10f,
+                //neighbourFish = new NativeList<LocalTransform>(),
                 neighborDistance = 3.0f,
                 separationDistance = 1.0f,
                 distanceFromSelectionPoint = 10f,
@@ -43,6 +46,7 @@ public struct FishComponent : IComponentData
     public float separationWeight;
     public float selectionPointWeight;
     //[Header("Neighbours")]
+    //public NativeList<LocalTransform> neighbourFish;
     public float neighborDistance;
     //[Header("Seperation")]
     public float separationDistance;

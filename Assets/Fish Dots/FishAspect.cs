@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.Burst;
+using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
@@ -48,7 +49,8 @@ public readonly partial struct FishAspect : IAspect
 public partial struct FishJob : IJobEntity
 {
     public float deltaTime;
-    public List<Transform> neighborFish;
+
+    public NativeList<LocalTransform> neighbourFish;
     //RefRW = ref & RefRO = in
     public void Execute(ref LocalTransform localTransform, ref FishComponent fish)
     {
@@ -57,21 +59,97 @@ public partial struct FishJob : IJobEntity
         localTransform = localTransform.Translate(fish.movementVector * deltaTime);
         */
         
-        neighborFish = HandleFishSystem.GetNeighbors(ref localTransform, ref fish);
+        neighbourFish = GetNeighbors(ref localTransform, ref fish);
         
-        float3 cohesion = HandleFishSystem.Cohesion(ref localTransform, ref fish, ref neighborFish) * fish.cohesionWeight;
-        float3 alignment = HandleFishSystem.Alignment(ref fish, ref neighborFish) * fish.alignmentWeight;
-        float3 separation = HandleFishSystem.Separation(ref localTransform, ref fish, ref neighborFish) * fish.separationWeight;
-        float3 selectionPoint = HandleFishSystem.SelectionPoint(ref localTransform, ref fish) * fish.selectionPointWeight;
+        float3 cohesion = Cohesion(ref localTransform, ref fish, ref neighbourFish) * fish.cohesionWeight;
+        float3 alignment = Alignment(ref fish, ref neighbourFish) * fish.alignmentWeight;
+        float3 separation = Separation(ref localTransform, ref fish, ref neighbourFish) * fish.separationWeight;
+        float3 selectionPoint = SelectionPoint(ref localTransform, ref fish) * fish.selectionPointWeight;
         
         fish.direction = cohesion + alignment + separation  + selectionPoint;
         fish.velocity += Time.deltaTime * fish.direction;
-        fish.velocity += Time.deltaTime * fish.speed * HandleFishSystem.Normalize(fish.velocity);
+        fish.velocity += Time.deltaTime * fish.speed * Normalize(fish.velocity);
         fish.velocity = Vector3.ClampMagnitude(fish.velocity, fish.speed);
         
-        Quaternion targetRotation = Quaternion.LookRotation(HandleFishSystem.Normalize(fish.velocity));
+        Quaternion targetRotation = Quaternion.LookRotation(Normalize(fish.velocity));
         localTransform.Rotation = Quaternion.Slerp(localTransform.Rotation, targetRotation, fish.turnSpeed * Time.deltaTime);
 
         localTransform.Position += fish.velocity * Time.deltaTime;
+
+        neighbourFish.Dispose();
+    }
+    
+    public static float3 Cohesion(ref LocalTransform localTransform, ref FishComponent fishComponent, ref NativeList<LocalTransform> neighborFish)
+    {
+        float3 centerOfMass = float3.zero;
+        float3 position = localTransform.Position;
+
+        foreach (LocalTransform fish in neighborFish)
+        {
+            centerOfMass += fish.Position;
+        }
+
+        if (neighborFish.Length == 0) return Vector3.zero;
+
+        centerOfMass /= neighborFish.Length;
+        return Normalize(centerOfMass - position);
+    }
+
+    public static float3 Alignment(ref FishComponent fishComponent, ref NativeList<LocalTransform> neighborFish)
+    {
+        float3 averageHeading = float3.zero;
+
+        foreach (LocalTransform fish in neighborFish)
+        {
+            averageHeading += fish.Forward();
+        }
+
+        if (neighborFish.Length == 0) return Vector3.zero;
+
+        averageHeading /= neighborFish.Length;
+        return Normalize(averageHeading);
+    }
+
+    public static float3 Separation(ref LocalTransform localTransform, ref FishComponent fishComponent, ref NativeList<LocalTransform> neighborFish)
+    {
+        float3 separationForce = float3.zero;
+        float3 position = localTransform.Position;
+
+        foreach (LocalTransform fish in neighborFish)
+        {
+            if (Vector3.Distance(position, fish.Position) < fishComponent.separationDistance)
+            {
+                separationForce += position - fish.Position;
+            }
+        }
+
+        return Normalize(separationForce);
+    }
+    
+    public static float3 SelectionPoint(ref LocalTransform localTransform, ref FishComponent fishComponent)
+    {
+        return Vector3.Distance(localTransform.Position, fishComponent.selectionPoint)>fishComponent.distanceFromSelectionPoint
+            ? Normalize(fishComponent.selectionPoint-localTransform.Position) : float3.zero;
+    }
+    
+    public static NativeList<LocalTransform> GetNeighbors(ref LocalTransform localTransform, ref FishComponent fish)
+    {
+        Collider[] nearbyObjects = Physics.OverlapSphere(localTransform.Position, fish.neighborDistance, LayerMask.GetMask("Fish"));
+        
+        NativeList<LocalTransform> nav = new NativeList<LocalTransform>();
+
+        foreach (var obj in nearbyObjects)
+        {
+            nav.Add(LocalTransform.FromMatrix(obj.transform.worldToLocalMatrix));
+        }
+
+        nav.Dispose();
+        
+        return nav;
+    }
+
+    public static float3 Normalize(float3 vector)
+    {
+        return vector / (Mathf.Sqrt(vector.x * vector.x + vector.y * vector.y + vector.z * vector.z));
     }
 }
