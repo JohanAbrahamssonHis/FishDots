@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.Collections;
 using Unity.Entities;
+using Unity.Jobs;
 using Unity.Mathematics;
 using Unity.Transforms;
 using UnityEngine;
@@ -19,13 +20,19 @@ public partial struct HandleFishSystem : ISystem
             fishAspect.FishLogic(SystemAPI.Time.DeltaTime);
         }
         */
-        SystemAPI.TryGetSingleton<AllFish>(out AllFish fish);
+        //SystemAPI.TryGetSingleton<AllFish>(out AllFish fish);
+        
         FishJob fishJob = new FishJob()
         {
             deltaTime = SystemAPI.Time.DeltaTime,
-            neighbourFish = fish.GetFishes(),
         };
-        fishJob.Run();
+
+        fishJob.ScheduleParallel();
+
+        //fishJob.neighbourFish.Dispose();
+        //fishJob.AllFish.Dispose();
+//AllFish = fish.GetFishes(),
+        //neighbourFish = new NativeList<LocalTransform>(Allocator.TempJob),
     }
 
 }

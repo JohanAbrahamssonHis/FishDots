@@ -13,7 +13,7 @@ public partial class SpawnFishSystem : SystemBase
     protected override void OnCreate()
     {
         RequireForUpdate<SpawnFishConfig>();
-        RequireForUpdate<AllFish>();
+        RequireForUpdate<AllFishConfig>();
     }
     
     protected override void OnUpdate()
@@ -23,8 +23,8 @@ public partial class SpawnFishSystem : SystemBase
         
         SpawnFishConfig spawnFishConfig = SystemAPI.GetSingleton<SpawnFishConfig>();
 
-        AllFish allFish = SystemAPI.GetSingleton<AllFish>();
-        allFish.Initialize();
+        //AllFishConfig allFish = SystemAPI.GetSingleton<AllFishConfig>();
+        //allFish.Initialize();
         
         for (int i = 0; i < spawnFishConfig.amountToSpawn; i++)
         {
@@ -42,7 +42,7 @@ public partial class SpawnFishSystem : SystemBase
             });
             */
             
-            allFish.AddEntity(EntityManager.GetComponentData<LocalTransform>(spawnedEntity));
+            //allFish.AddEntity(EntityManager.GetComponentData<LocalTransform>(spawnedEntity));
             
         }
     }

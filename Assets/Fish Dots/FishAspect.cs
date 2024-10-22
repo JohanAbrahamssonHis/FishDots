@@ -5,9 +5,11 @@ using System.Linq;
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Entities;
+using Unity.Jobs;
 using Unity.Mathematics;
 using Unity.Transforms;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public readonly partial struct FishAspect : IAspect
 {
@@ -49,8 +51,8 @@ public readonly partial struct FishAspect : IAspect
 public partial struct FishJob : IJobEntity
 {
     public float deltaTime;
-
-    public NativeList<LocalTransform> neighbourFish;
+    //public NativeList<LocalTransform> AllFish;
+    //public NativeList<LocalTransform> neighbourFish;
     //RefRW = ref & RefRO = in
     public void Execute(ref LocalTransform localTransform, ref FishComponent fish)
     {
@@ -59,24 +61,25 @@ public partial struct FishJob : IJobEntity
         localTransform = localTransform.Translate(fish.movementVector * deltaTime);
         */
         
-        neighbourFish = GetNeighbors(ref localTransform, ref fish, ref neighbourFish);
+        /*
+        neighbourFish = GetNeighbors(ref localTransform, ref fish, ref AllFish, ref neighbourFish);
         
         float3 cohesion = Cohesion(ref localTransform, ref fish, ref neighbourFish) * fish.cohesionWeight;
         float3 alignment = Alignment(ref fish, ref neighbourFish) * fish.alignmentWeight;
         float3 separation = Separation(ref localTransform, ref fish, ref neighbourFish) * fish.separationWeight;
         float3 selectionPoint = SelectionPoint(ref localTransform, ref fish) * fish.selectionPointWeight;
+        */
+        //cohesion + alignment + separation  + selectionPoint;
+        fish.direction = new float3(1, 0, 0);
         
-        fish.direction = cohesion + alignment + separation  + selectionPoint;
-        fish.velocity += Time.deltaTime * fish.direction;
-        fish.velocity += Time.deltaTime * fish.speed * Normalize(fish.velocity);
+        fish.velocity += deltaTime * fish.direction;
+        fish.velocity += deltaTime * fish.speed * Normalize(fish.velocity);
         fish.velocity = Vector3.ClampMagnitude(fish.velocity, fish.speed);
         
         Quaternion targetRotation = Quaternion.LookRotation(Normalize(fish.velocity));
-        localTransform.Rotation = Quaternion.Slerp(localTransform.Rotation, targetRotation, fish.turnSpeed * Time.deltaTime);
+        localTransform.Rotation = Quaternion.Slerp(localTransform.Rotation, targetRotation, fish.turnSpeed * deltaTime);
 
-        localTransform.Position += fish.velocity * Time.deltaTime;
-
-        neighbourFish.Dispose();
+        localTransform.Position += fish.velocity * deltaTime;
     }
     
     public static float3 Cohesion(ref LocalTransform localTransform, ref FishComponent fishComponent, ref NativeList<LocalTransform> neighborFish)
@@ -132,16 +135,12 @@ public partial struct FishJob : IJobEntity
             ? Normalize(fishComponent.selectionPoint-localTransform.Position) : float3.zero;
     }
     
-    public static NativeList<LocalTransform> GetNeighbors(ref LocalTransform localTransform, ref FishComponent fish, ref NativeList<LocalTransform> allFishes)
+    public static NativeList<LocalTransform> GetNeighbors(ref LocalTransform localTransform, ref FishComponent fish, ref NativeList<LocalTransform> allFishes, ref NativeList<LocalTransform> nav)
     {
-        NativeList<LocalTransform> nav = new NativeList<LocalTransform>();
-
         foreach (var obj in allFishes)
         {
             if(Vector3.Distance(obj.Position, localTransform.Position)<fish.neighborDistance) nav.Add(obj);
         }
-
-        nav.Dispose();
         
         return nav;
     }

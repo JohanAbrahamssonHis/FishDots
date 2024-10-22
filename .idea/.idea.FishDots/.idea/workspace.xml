@@ -6,9 +6,15 @@
   <component name="ChangeListManager">
     <list default="true" id="d827326d-75c6-4137-b35c-b596b3844bca" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.FishDots/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.FishDots/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Fish Dots/AllFish.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Fish Dots/AllFish.cs.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Fish Dots/FishAspect.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Fish Dots/FishAspect.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Fish Dots/HandleFishSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Fish Dots/HandleFishSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Fish Dots/SpawnFishAuthoringConfig.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Fish Dots/SpawnFishAuthoringConfig.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Fish Dots/SpawnFishSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Fish Dots/SpawnFishSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/FishDots/FishDotsSubScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/FishDots/FishDotsSubScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/EntitiesClientSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EntitiesClientSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/ShaderGraphSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ShaderGraphSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,6 +116,7 @@
       <workItem from="1729253244302" duration="5293000" />
       <workItem from="1729512855138" duration="4461000" />
       <workItem from="1729519606158" duration="1108000" />
+      <workItem from="1729597156108" duration="4371000" />
     </task>
     <servers />
   </component>
