@@ -15,7 +15,7 @@ public readonly partial struct FishAspect : IAspect
 {
     //public readonly RefRO<RotatingCube> rotatingCube;
     public readonly RefRW<LocalTransform> localTransform;
-    public readonly RefRO<FishComponent> fish;
+    public readonly RefRW<FishComponent> fish;
 
     public void FishLogic(float deltaTime)
     {
@@ -47,15 +47,19 @@ public readonly partial struct FishAspect : IAspect
 }
 
 [BurstCompile]
-//[WithAll(typeof(RotatingCube))]
-public partial struct FishJob : IJobEntity
+[WithAll(typeof(FishAspect))]
+public struct FishJob : IJob
 {
     public float deltaTime;
-    //public NativeList<LocalTransform> AllFish;
-    //public NativeList<LocalTransform> neighbourFish;
+    public NativeList<LocalTransform> AllFish;
+    public NativeList<LocalTransform> neighbourFish;
+    public LocalTransform localTransform;
+    public FishComponent fish;
+    
     //RefRW = ref & RefRO = in
-    public void Execute(ref LocalTransform localTransform, ref FishComponent fish)
+    public void Execute()
     {
+        //(ref LocalTransform localTransform, ref FishComponent fish)
         /*
         localTransform = localTransform.RotateY(fish.rotationValue * deltaTime);
         localTransform = localTransform.Translate(fish.movementVector * deltaTime);
@@ -70,16 +74,20 @@ public partial struct FishJob : IJobEntity
         float3 selectionPoint = SelectionPoint(ref localTransform, ref fish) * fish.selectionPointWeight;
         */
         //cohesion + alignment + separation  + selectionPoint;
-        fish.direction = new float3(1, 0, 0);
         
+        
+        fish.direction = new float3(1, 0, 0);
+    
         fish.velocity += deltaTime * fish.direction;
         fish.velocity += deltaTime * fish.speed * Normalize(fish.velocity);
         fish.velocity = Vector3.ClampMagnitude(fish.velocity, fish.speed);
-        
+    
         Quaternion targetRotation = Quaternion.LookRotation(Normalize(fish.velocity));
         localTransform.Rotation = Quaternion.Slerp(localTransform.Rotation, targetRotation, fish.turnSpeed * deltaTime);
 
         localTransform.Position += fish.velocity * deltaTime;
+        
+        
     }
     
     public static float3 Cohesion(ref LocalTransform localTransform, ref FishComponent fishComponent, ref NativeList<LocalTransform> neighborFish)

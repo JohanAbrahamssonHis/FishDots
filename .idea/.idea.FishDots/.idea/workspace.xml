@@ -6,15 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="d827326d-75c6-4137-b35c-b596b3844bca" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.FishDots/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.FishDots/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Fish Dots/AllFish.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Fish Dots/AllFish.cs.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Fish Dots/FishAspect.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Fish Dots/FishAspect.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Fish Dots/HandleFishSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Fish Dots/HandleFishSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Fish Dots/SpawnFishAuthoringConfig.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Fish Dots/SpawnFishAuthoringConfig.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Fish Dots/SpawnFishSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Fish Dots/SpawnFishSystem.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/FishDots/FishDotsSubScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/FishDots/FishDotsSubScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/EntitiesClientSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EntitiesClientSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/ShaderGraphSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ShaderGraphSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,14 +18,9 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Assets/Fish Dots/AllFish.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Fish Dots/HandleFishSystem.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Fish Dots/SpawnFishSystem.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.burst@1.8.17/Runtime/BurstCompilerOptions.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.entities@1.3.2/Unity.Entities.Hybrid/Baking/Baker.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.entities@1.3.2/Unity.Entities/Stubs/Unity/Debug.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.entities@1.3.2/Unity.Transforms/LocalTransform.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.mathematics@1.3.1/Unity.Mathematics/math_unity_conversion.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.entities@1.3.5/Unity.Entities/Stubs/Unity/Debug.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/RawImage.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Tests/Editor/EventSystem/EventTriggerRemoveDuringExecution.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
@@ -116,7 +107,7 @@
       <workItem from="1729253244302" duration="5293000" />
       <workItem from="1729512855138" duration="4461000" />
       <workItem from="1729519606158" duration="1108000" />
-      <workItem from="1729597156108" duration="4371000" />
+      <workItem from="1729597156108" duration="11956000" />
     </task>
     <servers />
   </component>
