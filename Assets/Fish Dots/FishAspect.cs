@@ -56,6 +56,11 @@ public struct FishJob : IJob
     public LocalTransform localTransform;
     public FishComponent fish;
     
+    public void Execute(int index)
+    {
+        throw new NotImplementedException();
+    }
+    
     //RefRW = ref & RefRO = in
     public void Execute()
     {

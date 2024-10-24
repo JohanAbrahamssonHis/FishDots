@@ -5,8 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d827326d-75c6-4137-b35c-b596b3844bca" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.FishDots/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.FishDots/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Fish Dots/HandleFishSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Fish Dots/HandleFishSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.FishDots/.idea/indexLayout.xml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,6 +104,7 @@
       <workItem from="1729519606158" duration="1108000" />
       <workItem from="1729597156108" duration="11956000" />
       <workItem from="1729671977910" duration="3120000" />
+      <workItem from="1729697024497" duration="15000" />
     </task>
     <servers />
   </component>
@@ -112,6 +112,11 @@
     <option name="version" value="3" />
   </component>
   <component name="UnityProjectConfiguration" hasMinimizedUI="true" />
+  <component name="UnityProjectDiscoverer">
+    <option name="hasUnityReference" value="true" />
+    <option name="unityProject" value="true" />
+    <option name="unityProjectFolder" value="true" />
+  </component>
   <component name="UnityUnitTestConfiguration" currentTestLauncher="Both" />
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
