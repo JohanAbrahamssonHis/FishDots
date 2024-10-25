@@ -9,9 +9,10 @@ using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
 
-[BurstCompile]
+//[BurstCompile]
 public partial struct BoidsSystem : ISystem
 {
+    /*
     public void OnUpdate(ref SystemState state)
     {
         float neighborRadius = 5.0f; // Example neighbor radius
@@ -23,10 +24,13 @@ public partial struct BoidsSystem : ISystem
         var localTransformHandle = state.GetComponentTypeHandle<LocalTransform>(true);
         var neighborBufferHandle = state.GetBufferTypeHandle<Neighbor>();
         var velocityHandle = state.GetComponentTypeHandle<Velocity>();
+        var FishConfig2Handle = state.GetComponentTypeHandle<FishConfig2>();
 
-        // Get all transforms
-        var allTransforms = new NativeArray<LocalTransform>(state.EntityManager.GetComponentCount<LocalTransform>(), Allocator.TempJob);
-        state.EntityManager.GetAllUniqueSharedComponentData(allTransforms);
+        // Create EntityQuery to select appropriate entities with FishAspect
+        EntityQuery query = state.GetEntityQuery(typeof(FishConfig2), typeof(LocalTransform), typeof(Velocity));
+
+        // Get all transforms (temporary data for neighbor detection)
+        var allTransforms = query.ToComponentDataArray<LocalTransform>(Allocator.TempJob);
 
         // Schedule Neighbor Detection Job
         NeighborDetectionJob neighborJob = new NeighborDetectionJob
@@ -36,7 +40,8 @@ public partial struct BoidsSystem : ISystem
             NeighborBufferHandle = neighborBufferHandle,
             AllTransforms = allTransforms
         };
-        var neighborHandle = neighborJob.ScheduleParallel(state.Dependency);
+        var neighborHandle = neighborJob.ScheduleParallel(query, state.Dependency);
+        state.Dependency = neighborHandle; // Update dependency
 
         // Schedule Separation Job
         SeparationJob separationJob = new SeparationJob
@@ -46,7 +51,8 @@ public partial struct BoidsSystem : ISystem
             LocalTransformHandle = localTransformHandle,
             VelocityHandle = velocityHandle
         };
-        var separationHandle = separationJob.ScheduleParallel(neighborHandle);
+        var separationHandle = separationJob.ScheduleParallel(query, state.Dependency);
+        state.Dependency = separationHandle; // Update dependency
 
         // Schedule Cohesion Job
         CohesionJob cohesionJob = new CohesionJob
@@ -55,7 +61,8 @@ public partial struct BoidsSystem : ISystem
             LocalTransformHandle = localTransformHandle,
             VelocityHandle = velocityHandle
         };
-        var cohesionHandle = cohesionJob.ScheduleParallel(separationHandle);
+        var cohesionHandle = cohesionJob.ScheduleParallel(query, state.Dependency);
+        state.Dependency = cohesionHandle; // Update dependency
 
         // Schedule Alignment Job
         AlignmentJob alignmentJob = new AlignmentJob
@@ -64,7 +71,8 @@ public partial struct BoidsSystem : ISystem
             LocalTransformHandle = localTransformHandle,
             VelocityHandle = velocityHandle
         };
-        var alignmentHandle = alignmentJob.ScheduleParallel(cohesionHandle);
+        var alignmentHandle = alignmentJob.ScheduleParallel(query, state.Dependency);
+        state.Dependency = alignmentHandle; // Update dependency
 
         // Schedule Apply Movement Job
         ApplyMovementJob movementJob = new ApplyMovementJob
@@ -74,14 +82,17 @@ public partial struct BoidsSystem : ISystem
             MaxSpeed = maxSpeed,
             DeltaTime = deltaTime
         };
-        var movementHandle = movementJob.ScheduleParallel(alignmentHandle);
+        var movementHandle = movementJob.ScheduleParallel(query, state.Dependency);
+        state.Dependency = movementHandle; // Update dependency
 
         // Complete the final handle
-        movementHandle.Complete();
+        state.Dependency.Complete();
 
         // Dispose temporary data
         allTransforms.Dispose();
+        
     }
+    */
 }
 
 public struct Neighbor : IBufferElementData

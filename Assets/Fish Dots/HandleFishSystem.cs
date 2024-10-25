@@ -17,6 +17,8 @@ public partial struct HandleFishSystem : ISystem
     public void OnUpdate(ref SystemState state)
     {
         
+        
+        
 
         //fishes = SystemAPI.Query<FishAspect>();
         /*
@@ -56,22 +58,31 @@ public partial struct HandleFishSystem : ISystem
         neighbors.Dispose();
         */
 
-        
-        /*
+
+        NativeList<LocalTransform> neighboursFishes = new NativeList<LocalTransform>(Allocator.TempJob);
+        NativeList<LocalTransform> transformsAllFishes = new NativeList<LocalTransform>(Allocator.TempJob);
+        foreach (FishAspect fishAspect in
+                 SystemAPI.Query<FishAspect>())
+        {
+            //fishes.Add(fishAspect.fish.ValueRW);
+            transformsAllFishes.Add(fishAspect.localTransform.ValueRW);
+        }
         
         FishJob fishJob = new FishJob
         {
             deltaTime = SystemAPI.Time.DeltaTime,
-            neighbourFish = new NativeList<LocalTransform>(Allocator.Persistent),
-            AllFish = new NativeList<LocalTransform>(Allocator.Persistent),
+            AllFish = neighboursFishes.AsDeferredJobArray(),
+            neighbourFishPosition = transformsAllFishes.AsDeferredJobArray(),
             //fish = fishAspect.fish.ValueRW,
             //localTransform = fishAspect.localTransform.ValueRW,
         };
         
-        JobHandle job = fishJob.Schedule();
+        JobHandle jobH = fishJob.ScheduleParallel(state.Dependency);
+
+        state.Dependency = jobH;
         
-        fishJob.neighbourFish.Dispose(job);
-        */
+        neighboursFishes.Dispose(jobH);
+        transformsAllFishes.Dispose(jobH);
 
        //CollectionHelper.CreateNativeArray<FishComponent>( SystemAPI.Query<FishComponent>, ref World.UpdateAllocator);
 

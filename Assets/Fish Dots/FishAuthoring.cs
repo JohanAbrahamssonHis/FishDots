@@ -9,6 +9,32 @@ using Random = UnityEngine.Random;
 
 public class FishAuthoring : MonoBehaviour
 {
+    //public float3 movementVectorAuthoring;
+    //public float rotationValueAuthoring;
+    
+    //[Header("Weights")]
+    public float cohesionWeightAuthoring;
+    public float alignmentWeightAuthoring;
+    public float separationWeightAuthoring;
+    public float selectionPointWeightAuthoring;
+    //[Header("Neighbours")]
+    //public NativeList<LocalTransform> neighbourFish;
+    public float neighborDistanceAuthoring;
+    //[Header("Seperation")]
+    public float separationDistanceAuthoring;
+    //[Header("Selection Point")]
+    public float distanceFromSelectionPointAuthoring;
+    public float3 selectionPointAuthoring;
+    //[Header("Other")]
+    /*
+    public float3 velocityAuthoring;
+
+    public float3 directionAuthoring;
+    
+    public float speedAuthoring;
+    public float turnSpeedAuthoring;
+    */
+    
     public class Baker : Baker<FishAuthoring>
     {
         public override void Bake(FishAuthoring authoring)
@@ -17,17 +43,18 @@ public class FishAuthoring : MonoBehaviour
         
             AddComponent(entity, new FishComponent
             {
-                movementVector = new float3(Random.Range(-1,1), 0,Random.Range(-1,1)),
-                rotationValue = Random.Range(-5,5),
+                //movementVector = new float3(Random.Range(-1,1), 0,Random.Range(-1,1)),
+                //rotationValue = Random.Range(-5,5),
                 
-                cohesionWeight = 1.0f,
-                alignmentWeight = 1.0f,
-                separationWeight = 1.5f,
-                selectionPointWeight = 10f,
+                cohesionWeight = authoring.cohesionWeightAuthoring,
+                alignmentWeight = authoring.alignmentWeightAuthoring,
+                separationWeight = authoring.separationWeightAuthoring,
+                selectionPointWeight = authoring.selectionPointWeightAuthoring,
                 //neighbourFish = new NativeList<LocalTransform>(),
-                neighborDistance = 3.0f,
-                separationDistance = 1.0f,
-                distanceFromSelectionPoint = 10f,
+                neighborDistance = authoring.neighborDistanceAuthoring,
+                separationDistance = authoring.separationDistanceAuthoring,
+                distanceFromSelectionPoint = authoring.distanceFromSelectionPointAuthoring,
+                selectionPoint = authoring.selectionPointAuthoring,
                 speed = 3.5f,
                 turnSpeed = 5.0f,
             });
@@ -37,8 +64,8 @@ public class FishAuthoring : MonoBehaviour
 
 public struct FishComponent : IComponentData
 {
-    public float3 movementVector;
-    public float rotationValue;
+    //public float3 movementVector;
+    //public float rotationValue;
     
     //[Header("Weights")]
     public float cohesionWeight;

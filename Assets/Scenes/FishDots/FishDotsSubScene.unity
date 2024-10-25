@@ -240,6 +240,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 117130ea89d4d8341b17099705f9f192, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cohesionWeightAuthoring: 1
+  alignmentWeightAuthoring: 1
+  separationWeightAuthoring: 1.5
+  selectionPointWeightAuthoring: 3
+  neighborDistanceAuthoring: 1
+  separationDistanceAuthoring: 2
+  distanceFromSelectionPointAuthoring: 4
+  selectionPointAuthoring:
+    x: 0
+    y: 0
+    z: 0
 --- !u!1 &628183561
 GameObject:
   m_ObjectHideFlags: 0
@@ -285,7 +296,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fishPrefab: {fileID: 450904280}
-  spawnAmount: 10
+  spawnAmount: 1000
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
