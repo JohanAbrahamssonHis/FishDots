@@ -69,7 +69,9 @@ public partial struct FishJob : IJobEntity
         neighbourFishPosition = GetNeighbors(ref localTransform, ref fish, ref AllFish, ref neighbourFishPosition);
         
         
-        float3 cohesion = Cohesion(ref localTransform, ref fish, ref neighbourFishPosition) * fish.cohesionWeight;
+        //float3 cohesion = Cohesion(ref localTransform, ref fish, ref neighbourFishPosition) * fish.cohesionWeight;
+        
+        //Debug.Log($"{cohesion.xyz}");
         
         float3 alignment = Alignment(ref fish, ref neighbourFishPosition) * fish.alignmentWeight;
         
@@ -78,13 +80,13 @@ public partial struct FishJob : IJobEntity
         float3 selectionPoint = SelectionPoint(ref localTransform, ref fish) * fish.selectionPointWeight;
         
 
-        //float3 cohesion = new float3(0.5f, 0.5f, 0.5f);
+        float3 cohesion = Normalize(new float3(1,1,1));
         //float3 alignment = new float3(1, 1, 1);
         //float3 separation = new float3(1, 1, 1);
         //float3 selectionPoint =new float3(1, 1, 1);
         
         
-        fish.direction = cohesion + alignment + separation  + selectionPoint;
+        fish.direction = alignment + cohesion + separation + selectionPoint;
 
         fish.velocity += deltaTime * fish.direction;
         fish.velocity += deltaTime * fish.speed * Normalize(fish.velocity);
@@ -110,6 +112,14 @@ public partial struct FishJob : IJobEntity
         if (neighborFish.Length == 0) return float3.zero;
 
         centerOfMass /= neighborFish.Length;
+        
+        
+        
+        if (Normalize(centerOfMass - position).Equals(new float3(0,0,0)))
+        {
+            return new float3(1, 0, 0);
+        }
+        
         return Normalize(centerOfMass - position);
     }
 
@@ -125,6 +135,13 @@ public partial struct FishJob : IJobEntity
         if (neighborFish.Length == 0) return float3.zero;
 
         averageHeading /= neighborFish.Length;
+        /*
+        if (float.IsNaN(Normalize(averageHeading).x))
+        {
+            return float3.zero;
+        }
+        */
+        
         return Normalize(averageHeading);
     }
 
@@ -171,5 +188,10 @@ public partial struct FishJob : IJobEntity
     public static float3 Normalize(float3 vector)
     {
         return vector / (Mathf.Sqrt(vector.x * vector.x + vector.y * vector.y + vector.z * vector.z));
+    }
+
+    public static float Magnitude(float3 vector)
+    {
+        return Mathf.Sqrt(vector.x * vector.x + vector.y * vector.y + vector.z * vector.z);
     }
 }

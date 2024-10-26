@@ -31,7 +31,7 @@ public partial class SpawnFishSystem : SystemBase
             Entity spawnedEntity = EntityManager.Instantiate(spawnFishConfig.fishPrefabEntity);
             EntityManager.SetComponentData(spawnedEntity, new LocalTransform
             {
-                Position = new float3(Random.Range(-10f,5f), 0, Random.Range(-4f,7f)),
+                Position = new float3(Random.Range(-100f,100f), Random.Range(-10f,10f), Random.Range(-100f,100f)),
                 Rotation = quaternion.identity,
                 Scale = 1f
             });
