@@ -62,6 +62,8 @@ public class Fish : MonoBehaviour
             UnityEngine.Random.Range(-0.3f, 0.3f),
             UnityEngine.Random.Range(-0.3f, 0.3f)
             );
+        
+        FishManager.allFishes.Add(this);
     }
 
     void Update()
@@ -197,7 +199,7 @@ public class Fish : MonoBehaviour
     {
         List<Transform> neighbors = new List<Transform>();
         
-        Collider[] nearbyObjects = Physics.OverlapSphere(transform.position, neighborDistance, LayerMask.GetMask("Fish"));
+        //Collider[] nearbyObjects = Physics.OverlapSphere(transform.position, neighborDistance, LayerMask.GetMask("Fish"));
         
 
         /*
@@ -249,7 +251,7 @@ public class Fish : MonoBehaviour
         }
         */
         
-        
+        /*
         foreach (Collider obj in nearbyObjects)
         {
             if (obj != collider)
@@ -258,8 +260,13 @@ public class Fish : MonoBehaviour
                 /*
                 obj.gameObject.TryGetComponent<Fish>(out Fish fish);
                 neighbors.Add(fish);
-                */
+                
             }
+        }
+        */
+        foreach (Fish obj in FishManager.allFishes)
+        {
+            if(Vector3.Distance(obj.transform.position, transform.position)<neighborDistance && obj != this) neighbors.Add(obj.transform);
         }
         
 

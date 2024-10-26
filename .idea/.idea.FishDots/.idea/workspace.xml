@@ -6,7 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="d827326d-75c6-4137-b35c-b596b3844bca" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.FishDots/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.FishDots/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Fish Dots/FishAspect.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Fish Dots/FishAspect.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Fish/Fish.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Fish/Fish.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Setup Fish.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Setup Fish.unity" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,6 +20,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/Fish Dots/FishDotsAttempt2/SeperationJob.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Fish Dots/HandleFishSystem.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Fish Dots/SpawnFishSystem.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Fish/FishManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.burst@1.8.18/Editor/BurstDisassembler.Core.LLVMIR.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.burst@1.8.18/Editor/BurstDisassembler.Core.Wasm.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.burst@1.8.18/Editor/BurstDisassembler.Core.cs" root0="SKIP_HIGHLIGHTING" />
@@ -115,7 +117,7 @@
       <workItem from="1729671977910" duration="3120000" />
       <workItem from="1729697026285" duration="12349000" />
       <workItem from="1729865301249" duration="12171000" />
-      <workItem from="1729948308204" duration="1802000" />
+      <workItem from="1729948308204" duration="2964000" />
     </task>
     <servers />
   </component>
