@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.Burst;
 using Unity.Collections;
+using Unity.Collections.LowLevel.Unsafe;
 using Unity.Entities;
 using Unity.Jobs;
 using Unity.Mathematics;
@@ -54,7 +55,9 @@ public partial struct FishJob : IJobEntity
 {
     public float deltaTime; 
     [ReadOnly] public NativeArray<LocalTransform> AllFish;
-    [ReadOnly] public NativeArray<LocalTransform> neighbourFishPosition;
+    [NativeDisableParallelForRestriction]
+    [NativeDisableContainerSafetyRestriction]
+    public NativeArray<LocalTransform> neighbourFishPosition;
     //public LocalTransform localTransform;
     //public FishComponent fish;
     
@@ -67,22 +70,22 @@ public partial struct FishJob : IJobEntity
         */
         
         //Debug.Log($"{neighbourFishPosition.Length}");
+
+        neighbourFishPosition = GetNeighbors(ref localTransform, ref fish, in AllFish, ref neighbourFishPosition);
         
-        //neighbourFishPosition = GetNeighbors(ref localTransform, ref fish, in AllFish, ref neighbourFishPosition);
-        
-        //float3 cohesion = Cohesion(ref localTransform, ref fish, neighbourFishPosition) * fish.cohesionWeight;
+        float3 cohesion = Cohesion(ref localTransform, ref fish, neighbourFishPosition) * fish.cohesionWeight;
         
         //Debug.Log($"{cohesion.xyz}");
         
         float3 alignment = Alignment(ref fish, ref neighbourFishPosition) * fish.alignmentWeight;
         
-        //float3 separation = Separation(ref localTransform, ref fish, ref neighbourFishPosition) * fish.separationWeight;
+        float3 separation = Separation(ref localTransform, ref fish, ref neighbourFishPosition) * fish.separationWeight;
         
         float3 selectionPoint = SelectionPoint(ref localTransform, ref fish) * fish.selectionPointWeight;
 
-        float3 cohesion = Normalize(new float3(1,1,1));
+        //float3 cohesion = Normalize(new float3(1,1,1));
         //float3 alignment = Normalize(new float3(1, 1, 1));
-        float3 separation = Normalize(new float3(1, 1, 1));
+        //float3 separation = Normalize(new float3(1, 1, 1));
         //float3 selectionPoint = Normalize(new float3(1, 1, 1));
         
         

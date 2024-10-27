@@ -58,7 +58,7 @@ public partial struct HandleFishSystem : ISystem
         neighbors.Dispose();
         */
 
-
+        /*
         NativeList<LocalTransform> neighboursFishes = new NativeList<LocalTransform>(Allocator.TempJob);
         NativeList<LocalTransform> transformsAllFishes = new NativeList<LocalTransform>(Allocator.TempJob);
         
@@ -66,12 +66,22 @@ public partial struct HandleFishSystem : ISystem
         foreach ((RefRO<LocalTransform> localTransform, RefRO<FishComponent> fish) in
                  SystemAPI.Query<RefRO<LocalTransform>, RefRO<FishComponent>>())
         {
-            neighboursFishes.Add(localTransform.ValueRO);
+            //neighboursFishes.Add(localTransform.ValueRO);
             transformsAllFishes.Add(localTransform.ValueRO);
         }
-        
+        */
         //Debug.Log($"{transformsAllFishes.Length} ya da first one");
-        
+        /*
+        JobHandle jobH2 = new NeightbourJob
+        {
+            AllFish = transformsAllFishes.AsDeferredJobArray(),
+            neighbourFishPosition = neighboursFishes.AsDeferredJobArray(),
+            //fish = fishAspect.fish.ValueRW,
+            //localTransform = fishAspect.localTransform.ValueRW,
+        }.ScheduleParallel(state.Dependency);
+        jobH2.Complete();
+        */
+        /*
         FishJob fishJob = new FishJob
         {
             deltaTime = SystemAPI.Time.DeltaTime,
@@ -87,7 +97,7 @@ public partial struct HandleFishSystem : ISystem
         
         neighboursFishes.Dispose(jobH);
         transformsAllFishes.Dispose(jobH);
-
+        */
        //CollectionHelper.CreateNativeArray<FishComponent>( SystemAPI.Query<FishComponent>, ref World.UpdateAllocator);
 
        /*
