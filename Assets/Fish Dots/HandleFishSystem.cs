@@ -61,18 +61,22 @@ public partial struct HandleFishSystem : ISystem
 
         NativeList<LocalTransform> neighboursFishes = new NativeList<LocalTransform>(Allocator.TempJob);
         NativeList<LocalTransform> transformsAllFishes = new NativeList<LocalTransform>(Allocator.TempJob);
-        foreach (FishAspect fishAspect in
-                 SystemAPI.Query<FishAspect>())
+        
+        
+        foreach ((RefRO<LocalTransform> localTransform, RefRO<FishComponent> fish) in
+                 SystemAPI.Query<RefRO<LocalTransform>, RefRO<FishComponent>>())
         {
-            //fishes.Add(fishAspect.fish.ValueRW);
-            transformsAllFishes.Add(fishAspect.localTransform.ValueRW);
+            neighboursFishes.Add(localTransform.ValueRO);
+            transformsAllFishes.Add(localTransform.ValueRO);
         }
+        
+        //Debug.Log($"{transformsAllFishes.Length} ya da first one");
         
         FishJob fishJob = new FishJob
         {
             deltaTime = SystemAPI.Time.DeltaTime,
-            AllFish = neighboursFishes.AsDeferredJobArray(),
-            neighbourFishPosition = transformsAllFishes.AsDeferredJobArray(),
+            AllFish = transformsAllFishes.AsDeferredJobArray(),
+            neighbourFishPosition = neighboursFishes.AsDeferredJobArray(),
             //fish = fishAspect.fish.ValueRW,
             //localTransform = fishAspect.localTransform.ValueRW,
         };

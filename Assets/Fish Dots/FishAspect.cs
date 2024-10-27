@@ -8,6 +8,7 @@ using Unity.Entities;
 using Unity.Jobs;
 using Unity.Mathematics;
 using Unity.Transforms;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
 using Random = UnityEngine.Random;
@@ -47,13 +48,13 @@ public readonly partial struct FishAspect : IAspect
     }
 }
 
-[BurstCompile]
+//[BurstCompile]
 [WithAll(typeof(FishAspect))]
 public partial struct FishJob : IJobEntity
 {
-    public float deltaTime;
-    public NativeArray<LocalTransform> AllFish;
-    public NativeArray<LocalTransform> neighbourFishPosition;
+    public float deltaTime; 
+    [ReadOnly] public NativeArray<LocalTransform> AllFish;
+    [ReadOnly] public NativeArray<LocalTransform> neighbourFishPosition;
     //public LocalTransform localTransform;
     //public FishComponent fish;
     
@@ -65,25 +66,24 @@ public partial struct FishJob : IJobEntity
         localTransform = localTransform.Translate(fish.movementVector * deltaTime);
         */
         
+        //Debug.Log($"{neighbourFishPosition.Length}");
         
-        neighbourFishPosition = GetNeighbors(ref localTransform, ref fish, ref AllFish, ref neighbourFishPosition);
+        //neighbourFishPosition = GetNeighbors(ref localTransform, ref fish, in AllFish, ref neighbourFishPosition);
         
-        
-        //float3 cohesion = Cohesion(ref localTransform, ref fish, ref neighbourFishPosition) * fish.cohesionWeight;
+        //float3 cohesion = Cohesion(ref localTransform, ref fish, neighbourFishPosition) * fish.cohesionWeight;
         
         //Debug.Log($"{cohesion.xyz}");
         
         float3 alignment = Alignment(ref fish, ref neighbourFishPosition) * fish.alignmentWeight;
         
-        float3 separation = Separation(ref localTransform, ref fish, ref neighbourFishPosition) * fish.separationWeight;
+        //float3 separation = Separation(ref localTransform, ref fish, ref neighbourFishPosition) * fish.separationWeight;
         
         float3 selectionPoint = SelectionPoint(ref localTransform, ref fish) * fish.selectionPointWeight;
-        
 
         float3 cohesion = Normalize(new float3(1,1,1));
-        //float3 alignment = new float3(1, 1, 1);
-        //float3 separation = new float3(1, 1, 1);
-        //float3 selectionPoint =new float3(1, 1, 1);
+        //float3 alignment = Normalize(new float3(1, 1, 1));
+        float3 separation = Normalize(new float3(1, 1, 1));
+        //float3 selectionPoint = Normalize(new float3(1, 1, 1));
         
         
         fish.direction = alignment + cohesion + separation + selectionPoint;
@@ -95,30 +95,22 @@ public partial struct FishJob : IJobEntity
         Quaternion targetRotation = Quaternion.LookRotation(Normalize(fish.velocity));
         localTransform.Rotation = Quaternion.Slerp(localTransform.Rotation, targetRotation, fish.turnSpeed * deltaTime);
 
-        localTransform.Position += fish.velocity * deltaTime; 
-        
+        localTransform.Position += fish.velocity * deltaTime;
     }
     
-    public static float3 Cohesion(ref LocalTransform localTransform, ref FishComponent fishComponent, ref NativeArray<LocalTransform> neighborFish)
+    public static float3 Cohesion(ref LocalTransform localTransform, ref FishComponent fishComponent, NativeArray<LocalTransform> neighborFish)
     {
         float3 centerOfMass = float3.zero;
         float3 position = localTransform.Position;
-
-        foreach (LocalTransform fish in neighborFish)
+        
+        foreach (var fish in neighborFish)
         {
             centerOfMass += fish.Position;
         }
-
+        
         if (neighborFish.Length == 0) return float3.zero;
 
         centerOfMass /= neighborFish.Length;
-        
-        
-        
-        if (Normalize(centerOfMass - position).Equals(new float3(0,0,0)))
-        {
-            return new float3(1, 0, 0);
-        }
         
         return Normalize(centerOfMass - position);
     }
@@ -157,7 +149,7 @@ public partial struct FishJob : IJobEntity
                 separationForce += position - fish.Position;
             }
         }
-
+        
         if (neighborFish.Length == 0) return float3.zero;
         
         return Normalize(separationForce);
@@ -169,7 +161,7 @@ public partial struct FishJob : IJobEntity
             ? Normalize(fishComponent.selectionPoint-localTransform.Position) : float3.zero;
     }
     
-    public static NativeArray<LocalTransform> GetNeighbors(ref LocalTransform localTransform, ref FishComponent fish, ref NativeArray<LocalTransform> allFishes, ref NativeArray<LocalTransform> nav)
+    public static NativeArray<LocalTransform> GetNeighbors(ref LocalTransform localTransform, ref FishComponent fish, in NativeArray<LocalTransform> allFishes, ref NativeArray<LocalTransform> nav)
     {
         NativeList<LocalTransform> jo = new NativeList<LocalTransform>(Allocator.TempJob);
         
@@ -177,7 +169,7 @@ public partial struct FishJob : IJobEntity
         {
             if(Vector3.Distance(obj.Position, localTransform.Position)<fish.neighborDistance) jo.Add(obj);
         }
-
+        
         nav = jo;
 
         jo.Dispose();
