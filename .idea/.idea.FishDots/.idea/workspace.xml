@@ -6,8 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="d827326d-75c6-4137-b35c-b596b3844bca" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.FishDots/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.FishDots/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Fish Dots/FishAspect.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Fish Dots/FishAspect.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Fish Dots/HandleFishSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Fish Dots/HandleFishSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Fish Dots/FishDotsAttempt2/FishAttempt3/HandleFishSystem2.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Fish Dots/FishDotsAttempt2/FishAttempt3/HandleFishSystem2.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/FishDots/FishDotsSubScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/FishDots/FishDotsSubScene.unity" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -119,7 +118,7 @@
       <workItem from="1729697026285" duration="12349000" />
       <workItem from="1729865301249" duration="12171000" />
       <workItem from="1729948308204" duration="9015000" />
-      <workItem from="1730032128350" duration="9372000" />
+      <workItem from="1730032128350" duration="10853000" />
     </task>
     <servers />
   </component>
