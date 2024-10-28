@@ -245,8 +245,8 @@ MonoBehaviour:
   separationWeightAuthoring: 1.5
   selectionPointWeightAuthoring: 3
   neighborDistanceAuthoring: 1
-  separationDistanceAuthoring: 2
-  distanceFromSelectionPointAuthoring: 50
+  separationDistanceAuthoring: 0.5
+  distanceFromSelectionPointAuthoring: 40
   selectionPointAuthoring:
     x: 0
     y: 0
@@ -296,7 +296,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fishPrefab: {fileID: 450904280}
-  spawnAmount: 5000
+  spawnAmount: 31250
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

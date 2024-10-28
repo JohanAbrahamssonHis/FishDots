@@ -99,7 +99,7 @@ public struct NeighborDetectionJob3 : IJobParallelFor
                 if (distance < separationDistance)
                 {
                     float3 awayVector = currentFish.Position - AllFish[i].Position;
-                    separationForce += math.normalize(awayVector) / ((distance!=0)?distance:0.001f); // Weighted by inverse distance
+                    separationForce += math.normalize(awayVector) / distance; // Weighted by inverse distance
                 }
             }
         }
